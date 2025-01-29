@@ -136,10 +136,10 @@ func main() {
 
 }
 
-func sum(nums ...int) int {
-	logic
-}
+// func sum(nums ...int) int {
+// 	logic
+// }
 
-func main() {
-	total := sum(1,2,3)
-}
+// func main() {
+// 	total := sum(1,2,3)
+// }
