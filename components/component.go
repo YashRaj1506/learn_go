@@ -2,89 +2,123 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
-type car struct {
-	Make string
-	Model string
-	Height int
-	Width int
-	Frontwheel Wheel //Nester struct
-	BackWheel Wheel
-}
 
-type Wheel struct {
-	Radius int
-	Material string
-}
+// // structs
 
-// Anonymous Structs
-// myCar := car{}
-// myCar.Frontwheel.Radius = 5
-
-// myCar := struct {
+// type car struct {
 // 	Make string
-//	Model string
-//	} {
-//		Make : "tesla",
-//		Model : "model 3"
-//	}
+// 	Model string
+// 	Height int
+// 	Width int
+// 	Frontwheel Wheel //Nester struct
+// 	BackWheel Wheel
+// }
 
-//inheriting fields from one stryuct to another
+// type Wheel struct {
+// 	Radius int
+// 	Material string
+// }
 
-type car struct {
-	make string
-	model string
-}
+// // Anonymous Structs
+// // myCar := car{}
+// // myCar.Frontwheel.Radius = 5
 
-type truck struct {
-	// "car" is embedded, so tej defination of a
-	// "truck" now also additionally contains all
-	// of the fields of the car struct
-    car
-	bedsize int
-}
+// // myCar := struct {
+// // 	Make string
+// //	Model string
+// //	} {
+// //		Make : "tesla",
+// //		Model : "model 3"
+// //	}
+
+// //inheriting fields from one stryuct to another
+
+// type car struct {
+// 	make string
+// 	model string
+// }
+
+// type truck struct {
+// 	// "car" is embedded, so tej defination of a
+// 	// "truck" now also additionally contains all
+// 	// of the fields of the car struct
+//     car
+// 	bedsize int
+// }
 
 // now instead of truck.car.model we just go for truck.model
 
-lanesTruck = truck {
-	bedsize: 10,
-	car: car{
-		make : "toyota",
-		model: "camry",
-	},
+// lanesTruck = truck {
+// 	bedsize: 10,
+// 	car: car{
+// 		make : "toyota",
+// 		model: "camry",
+// 	},
+// }
+
+// interface
+
+type Shape interface {
+	Area() float64
 }
 
+type Rectangle struct {
+	width, height float64
+}
 
+func (r Rectangle) Area() float64 {
+	return r.width * r.height
+}
 
+type Circle struct {
+	radius float64
+}
 
-func top(x int ) int {
-	return x + 1
+func (c Circle) Area() float64 {
+	return math.Pi * c.radius * c.radius
+}
+
+func CalculateArea(s Shape) float64 {
+	return s.Area()
 }
 
 func main() {
-	// var sms int
-	// var consti float64
-	// var per bool
-	// var username string
+	rect := Rectangle{width: 5, height: 4}
+	circle := Circle{radius: 2}
 
-	// fmt.Printf(
-	// 	"%v %f %v %q\n",
-	// 	sms,
-	// 	consti,
-	// 	per,
-	// 	username,
-	// )
+	fmt.Println(
+		"Reactangle area:",
+		CalculateArea(rect),
+	)
+	fmt.Println(
+		"Circle area:",
+		CalculateArea(circle),
+	)
 
-	// if length := getLength(email); length < 1 {
-	// 	fmt.Println("Hye")
-	// }
+	mysteryBox := interface{}(10)
+	describeValue(mysteryBox)
 
-	a := top(5)
-	fmt.Println(a)
-
-	// var empty string or empty:= ""
-
+	retrieveInt, ok := mysteryBox.(string)
+	if ok {
+		fmt.Println("Retrieved int:", retrieveInt)
+	} else {
+		fmt.Println("Value is not an integer")
+	}
 }
 
+
+//finding type of input
+
+func describeValue(t interface{}) {
+	fmt.Printf("Type: %T, Value: %v\n",t ,t)
+}
+
+// func describeValue(t interface{}) {
+// 	fmt.Printf("Type: %T, Value: %v\n", t, t)
+// }
+// ✅ The function accepts any type as an argument (because interface{} can hold any type).
+// ✅ Inside the function:
 
